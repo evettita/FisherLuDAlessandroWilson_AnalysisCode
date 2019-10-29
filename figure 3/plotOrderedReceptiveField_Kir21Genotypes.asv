@@ -48,7 +48,8 @@ plotOrderedOLHeatMap( uas_rfAcrossCells, barPositionDegreesFromMidline, minColor
 title( 'UAS control');
 
 %% Plot bar plots of max inhibition and excitation 
-ORDER_MEDFILTER = 3; 
+
+ORDER_MEDFILTER = 3; %
 
 % smooth RF data
 expt_rfAcrossCellsSmoothed = medfilt1( expt_rfAcrossCells(:,:), ORDER_MEDFILTER, 'truncate',2); % Median filtering of the trace
@@ -73,7 +74,7 @@ ranksum( expt_inh, control_UAS_inh)
 figure('Position',[50, 50, 400, 800]);
 set(gcf, 'Color', 'w');
 
-% Plot min responses as scatter and bar plot
+% plot min responses
 subplot(1, 2, 1)
 bar( [mean(expt_inh) , mean(control_Gal4_inh), mean(control_UAS_inh) ] ,'b'); hold on
 scatter( [ones(length(expt_inh),1); 2*ones(length(control_Gal4_inh),1);3*ones(length(control_UAS_inh),1)], [expt_inh; control_Gal4_inh; control_UAS_inh], 'filled','k') 
@@ -85,7 +86,7 @@ box off
 title('min response');
 niceaxes
 
-% Plot max responses as scatter and bar plot
+% plot max response
 subplot(1, 2, 2)
 bar( [mean(expt_exc) , mean(control_Gal4_exc), mean(control_UAS_exc) ] ,'r'); hold on
 scatter( [ones(length(expt_exc),1); 2*ones(length(control_Gal4_exc),1);3*ones(length(control_UAS_exc),1)], [expt_exc; control_Gal4_exc; control_UAS_exc], 'filled','k') 
@@ -97,7 +98,7 @@ box off
 title('max response');
 niceaxes
 
-%% Plot integrated inhibition as scatter and bar plot for supplemental data
+%% TODO:::   Plot bar plots of integrated inhibition - added 2/2019
 expt_rfAcrossCellsSmoothed = medfilt1( expt_rfAcrossCells(:,:), ORDER_MEDFILTER, 'truncate',2); % Median filtering of the trace
 gal4_rfAcrossCellsSmoothed = medfilt1( gal4_rfAcrossCells(:,:), ORDER_MEDFILTER, 'truncate',2); % Median filtering of the trace
 uas_rfAcrossCellsSmoothed = medfilt1( uas_rfAcrossCells(:,:), ORDER_MEDFILTER, 'truncate',2); % Median filtering of the trace
@@ -128,19 +129,39 @@ box off
 title('integrated inhibition');
 niceaxes
 
+%% save current plot
+dir = '/Users/evettita/Dropbox (HMS)/FisherLuWilson ms/revision/Figures/Figure 3/';
+fileName = [ dir 'R20A02_Gal4_heatmap.eps' ];
+print( fileName, '-dpdf');
+
 
 %% Plot OL Heatmap
 function plotOrderedOLHeatMap( rfAcrossCells, barPositionDegreesFromMidline, cm_min , cm_max)
+
+%  % reorder plots with strongest inhibition on top to least inihibition on
+%  % bottom
+% [~, sortIndex] = sort ( min(rfAcrossCells, [], 2) );
+% rfAcrossCells = rfAcrossCells( sortIndex , :);
+
+%  COLOR_STEP_NUM = 40;
+%  colorBrewerMap = cbrewer('div', 'Spectral', COLOR_STEP_NUM);
 
 % order for median filter smooth
 ORDER_MEDFILTER = 3; %
 rfAcrossCellsFiltered = medfilt1( rfAcrossCells(:,:), ORDER_MEDFILTER, 'truncate',2); % Median filtering of the trace
 
-% reorder OL tuning based on location of max resposne per row
+
+% % reorder OL tuning based on location of max resposne per row
  [~,  minIndex] = min( rfAcrossCellsFiltered ,[],2);
  [~, sortIndex ] = sort( minIndex );
+% % 
+% % % reorder OL tuning based on location of max resposne per row
+% % [~,  maxIndex] = max( rfAcrossCellsFiltered ,[],2);
+% % [~, sortIndex ] = sort( maxIndex );
+% 
+ rfAcrossCellsFilteredAndSorted = rfAcrossCellsFiltered(sortIndex, :);
 
-rfAcrossCellsFilteredAndSorted = rfAcrossCellsFiltered(sortIndex, :);
+% rfAcrossCellsFilteredAndSorted = rfAcrossCellsFiltered;
 
 imagesc( rfAcrossCellsFilteredAndSorted ,'AlphaData', ~isnan(rfAcrossCellsFilteredAndSorted)); hold on;
 set(gca,'color',0*[1 1 1]); 
@@ -150,6 +171,7 @@ c.Label.String = '\DeltaVm  (mV)';
 caxis( [ cm_min , cm_max]);
 
 colormap('bluewhitered'); % zero set to white in this plotting
+%colormap( flip( colorBrewerMap ) ); % zero set to white in this plotting
 
 set(gca, 'xtick', 1: length(barPositionDegreesFromMidline) );
 labels = round(barPositionDegreesFromMidline) ;
@@ -159,4 +181,16 @@ ylabel( ' cell number ' );
 xlabel(' bar position (deg)')
 niceaxes; box off;
 
+% % add plot of tuning curves on top of eachother:
+% figure;set(gcf, 'Color', 'w');
+% plot( barPositionDegreesFromMidline , rfAcrossCellsFilteredAndSorted , 'k'); hold on
+% % add grey dotted line at 0
+% plot( barPositionDegreesFromMidline, zeros( 1, length(barPositionDegreesFromMidline) ),'--', 'Color', [ 0.7 , 0.7, 0.7] ); hold on;
+% 
+% ylim([ cm_min, cm_max/2]);
+% ylabel('\Delta V_m (mV)');
+% xlabel(' bar position (deg)')
+% niceaxes; box off;
+
 end
+%%

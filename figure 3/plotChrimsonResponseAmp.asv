@@ -1,5 +1,5 @@
 % plotChrimsonResponse
-% ploting of E-PG voltage resposnes to R2/R4d neuron chrimson stimulation
+% ploting of E-PG resposnes to R2/R4 neuron for stim chrimson experiments for R2 neurons and looking at E-PG responses
 % Yvette Fisher 8/2018
 
 %% Plot each IPSP from this trial and calculate average amplitude
@@ -58,10 +58,13 @@ for i = 1 : numel(epochStartInds) - 1
     preStimVoltage = dataTrace( currEpochStart : currEpochStimStart);
     preStimAve(i) = mean(preStimVoltage ( length( preStimVoltage ) - (EPOCH_TO_FIND_BASELINE * settings.sampRate ) : end ) );
     
+    %plot( currTimeArray , preStimAve(i) * ones( 1, length(currTimeArray)));
     % Find min Vm in second following stimulation
     postStimVoltage = dataTrace( currEpochStimStart : currEpochEnd);
     postStimMin(i) = min(postStimVoltage (1 : EPOCH_TO_FIND_MINIMUM * settings.sampRate ) );
-
+    %plot( currTimeArray , postStimMin(i) * ones( 1, length(currTimeArray)));
+    
+    
     currStim = stimulus.shutterCommand( currEpochStart: currEpochEnd);
     STIM_OFFSET = -95;
     STIM_SCALE = 100;
@@ -84,13 +87,22 @@ IPSP_meanAmp = postStimMinVoltage - preStimMeanVoltage;
 
 PERCENTAGE_OF_MIN_FOR_LATENCY = 0.1;
 % find latency when meanTrace passes 5% of max response
-fractionMinVm = preStimMeanVoltage + (( postStimMinVoltage - preStimMeanVoltage )* PERCENTAGE_OF_MIN_FOR_LATENCY);
+     fractionMinVm = preStimMeanVoltage + (( postStimMinVoltage - preStimMeanVoltage )* PERCENTAGE_OF_MIN_FOR_LATENCY);
     
-% find when trace first passes under this value
-firstSampleBelowMinVm  = find( postStimMeanTrace  < fractionMinVm , 1 ,'first');
-  
-% find lateny from shutter opening till trace passing this value:
-responseLatencyToPercentageMin_sec = firstSampleBelowMinVm / ( settings.sampRate); % seconds
+     % find when trace first passes under this value
+     firstSampleBelowMinVm  = find( postStimMeanTrace  < fractionMinVm , 1 ,'first');
+%     
+%     % find lateny from shutter opening till trace passing this value:
+      responseLatencyToPercentageMin_sec = firstSampleBelowMinVm / ( settings.sampRate); % seconds
+
+
+% IPSP_amp=[];
+% % calculate IPSP amplitudes:
+% IPSP_amp = postStimMin - preStimAve;
+
+% IPSP_mean = mean( IPSP_amp );
+% latency_mean = mean( responseLatencyToHalfMin_sec );
+% Vrest_mean = mean(preStimAve);
 
 % add average IPSP plotp
 plot( currTimeArray,meanTrace , '-k' );
@@ -102,11 +114,31 @@ xlabel('s')
 ylabel('mV')
 title( [ 'IPSP ave: '   num2str( round( IPSP_meanAmp ,2) ) 'mV, Latency till halfmin = ' num2str( round( responseLatencyToPercentageMin_sec,4) ) ] )
 
-%% Summary plots for mean response amplitude across data set:
+IPSP_meanAmp
+responseLatencyToPercentageMin_sec
+
+%% Summery plots for mean effect and latency here:
+
 figure;
 set(gcf, 'Color', 'w');
-set(gca,'TickDir','out');
+set(gca,'TickDir','out'); % The only other option is 'in'
 
+aveResponseAmp = [-17.0318000000000;-27.5632000000000;-7.59350000000000;-13.9976000000000;-14.5940000000000;-14.2077000000000;-15.0816000000000];
+aveResponseLatency = [0.0130000000000000;0.0273000000000000;0.0449000000000000;0.0130000000000000;0.0117000000000000;0.0140000000000000;0.0115000000000000];
+
+plotSpread( aveResponseAmp, 'showMM', 2 );
+ylim([ -30,0]);
+ylabel('mV')
+niceaxes
+title('R19C08 chrimson, mean red cross');
+
+
+%%
+figure;
+set(gcf, 'Color', 'w');
+set(gca,'TickDir','out'); % The only other option is 'in'
+
+aveResponseAmpR2 = [-17.0318000000000;-27.5632000000000;-7.59350000000000;-13.9976000000000;-14.5940000000000;-14.2077000000000;-15.0816000000000];
 aveResponseAmpR2R4d = [-17.0318000000000;-27.5632000000000;-7.59350000000000;-13.9976000000000;-14.5940000000000;-14.2077000000000;-15.0816000000000;-2.00820000000000;-12.1955000000000;-8.50600000000000;-10.5615000000000];
 
 plotSpread( aveResponseAmpR2R4d, 'showMM', 2 );
@@ -116,11 +148,21 @@ niceaxes
 title('R2 or R4d chrimson, mean red cross');
 
 
-%% Summary plots for mean response amplitude in control recordings that lack chrimson
+
+% 
+% figure;
+% set(gcf, 'Color', 'w');
+% set(gca,'TickDir','out'); % The only other option is 'in'
+% 
+% plotSpread( aveResponseLatency, 'showMM', 2 );
+% ylim([ 0,0.05]);
+
+
+%%
 aveControlResponseAmp = [-2.44210000000000;-1.52870000000000;-1.15960000000000;-2.38250000000000;-2.63290000000000];
 figure;
 set(gcf, 'Color', 'w');
-set(gca,'TickDir','out');
+set(gca,'TickDir','out'); % The only other option is 'in'
 
 plotSpread( aveControlResponseAmp, 'showMM', 2 );
 ylim([ -30,0]);
