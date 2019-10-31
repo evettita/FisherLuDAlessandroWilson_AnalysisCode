@@ -88,10 +88,8 @@ for fileNum = 1 : length ( trialFilesList )
                 epochStartInds = [epochStartInds indofJ(ii) ];
             end
         end
-
         % check that this epoch step was not empty for some reason
         if( ~ isempty(epochStartInds) )
-            
             stimulusStep= [];
             voltageByPosition = [];
             for i = 1 : ( numel(epochStartInds) )
@@ -104,7 +102,6 @@ for fileNum = 1 : length ( trialFilesList )
            
             % same stimulus step
             stimulusStep(i, :)  = data.xPanelPos( currEpochStart: currEpochEnd );
-            
             end
              % save the data traces for this bar position:
             barPositionResp{j} = voltageByPosition; 
@@ -131,8 +128,7 @@ for kk = POSSIBLE_BAR_LOCATIONS
     % start time of the first trial
     firstTrialStartTime = processedData(1).trialStartTime;
 
-    for i = 1 : length( processedData )
-        
+    for i = 1 : length( processedData ) 
         currTraces = processedData(i).barPositionResp{BAR_POSITION_TO_PLOT};
         currTimeArray = (1  :  length(currTraces) ) / settings.sampRate; % seconds
 
@@ -180,7 +176,6 @@ for kk = POSSIBLE_BAR_LOCATIONS
     voltageDiff(BAR_POSITION_TO_PLOT / 2, :) = ave_Voltage - ave_preBaselineVoltage;
 end
 
-
 figure('Position',[50, 50, 1800, 800]);
 set(gcf, 'Color', 'w');
 
@@ -217,21 +212,16 @@ DEGREE_PER_LED_SLOT = 360 / 96;
 
 % 270 degree panels 
 MIDLINE_POSITION = 34; % LED position where the fly head is pointing
-
 barPositionDegreesFromMidline = ( POSSIBLE_BAR_LOCATIONS - MIDLINE_POSITION ) * DEGREE_PER_LED_SLOT;
-
 meanVoltageDiff = mean(voltageDiff', 1);
-
 imagesc( meanVoltageDiff ); box off
 
 c = colorbar;
 c.Label.String = ' Delta Vm  (mV) ( response - baseline)';
-
 colormap('bluewhitered'); % zero set to white in this plotting
 
 set(gca, 'xtick', POSSIBLE_BAR_LOCATIONS / 2 )
 set(gca, 'xticklabel', round(barPositionDegreesFromMidline))
-
 set(gca, 'ytick', 1:length(trialNum) )
 
 % build tick labels

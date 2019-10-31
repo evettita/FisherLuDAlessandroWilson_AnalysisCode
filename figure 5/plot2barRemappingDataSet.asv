@@ -4,7 +4,8 @@
 % between different OL/CL tuning curves and linear regression of the change
 % in tuning following 2 bar experience.
 %
-% Yvette Fisher 11/20/18, updated 3/2019
+% Yvette Fisher 11/20/18
+
 %% Remapping data set::
 clear all; close all
 ephysSettings;
@@ -16,6 +17,7 @@ OL_after2BarTuningCurve = [1.04592781100000,2.37643462200000,3.16999303100000,3.
 CL_2BarTuningCurve = [-40.6614160400000,-40.8273881400000,-42.3229727000000,-39.2323734200000,-37.4912906200000,-35.9800630900000,-35.7321040800000,-35.1562874600000,-35.5578731100000,-36.9018349400000,-38.0805759000000,-38.2092162400000,-39.2628543000000,-39.8212178300000,-39.7687128500000,-40.7119018400000,-42.2223058000000,-41.0972457200000,-40.1332336300000,-41.1855044100000,-39.8309763100000,-38.6313223400000,-37.3692042200000,-36.4015127100000,-35.1319001300000,-37.0827570600000,-35.2185706000000,-38.2889474200000,-38.4891855500000,-38.3949306900000,-39.2328914300000,-39.9889634900000,-40.5777150900000,-40.3053148500000,-41.5778519000000;-33.4982079600000,-33.6420410300000,-33.9914164900000,-33.0727276600000,-34.7427229500000,-34.2337994500000,-34.3183079100000,-34.1394148200000,-33.7644736300000,-34.6504130400000,-36.8498984200000,-35.0910988600000,-35.4222074900000,-33.6268142300000,-33.3056311100000,-34.7355136000000,-34.1555630500000,-34.0779232200000,-33.1949523400000,-34.9752829900000,-34.1406487700000,-34.3662192100000,-35.6454112200000,-35.2674849700000,-35.6865028500000,-33.8949476200000,-35.0526601700000,-35.8645337800000,-35.1510502100000,-35.3044284300000,-34.4457856500000,-34.3851616100000,-33.6976058300000,-34.1322555200000,-33.1146520300000;-29.2199826900000,-29.4650240000000,-29.2219417100000,-29.9337227600000,-30.4664995100000,-30.8581657700000,-31.1395465100000,-31.8753594100000,-32.4513119100000,-32.0217082900000,-32.7363445100000,-32.2736649600000,-30.7657790800000,-30.0223139600000,-31.7261272100000,-30.7172598100000,-30.7347407700000,-30.5113777200000,-29.2795229600000,-29.3790010100000,-32.1507463300000,-31.3810137100000,-29.5427714200000,-31.3282378000000,-30.9094548200000,-30.5043329900000,-30.6332279900000,-29.0845088300000,-30.9320487400000,-31.5400112700000,-30.6143995300000,-30.3825599700000,-29.5100241400000,-29.1721163600000,-29.4359089000000;-36.3134324100000,-36.3377646900000,-36.3860708800000,-38.5325224500000,-35.3975130400000,-37.6394170500000,-32.8633920200000,-35.7850059000000,-35.0696870100000,-36.0434319000000,-35.3721324900000,-33.3502590700000,-33.7406195000000,-35.3126794300000,-34.3922789000000,-36.1479348500000,-37.9876705100000,-39.4614462100000,-38.8370875700000,-37.2908075600000,-37.1590391800000,-36.6694435500000,-38.5432069400000,-36.0748437000000,-37.0249712800000,-33.9438978300000,-33.2625646500000,-34.9341326000000,-33.4280068100000,-32.4896724800000,-35.4992062200000,-35.0783674200000,-33.4642140500000,-33.7460287300000,-37.0547537700000;-44.2847249000000,-41.7772508600000,-42.6374366700000,-42.8212455500000,-44.7034711700000,-44.9359699500000,-44.6752510200000,-44.6518502000000,-45.0236363400000,-45.7598316800000,-43.9377983800000,-40.5134160200000,-42.1285174400000,-42.3445545700000,-41.4189183000000,-41.7424140000000,-42.0048281600000,-42.2040658400000,-44.1363848900000,-45.3316670400000,-45.5388471000000,-44.5269720500000,-44.3558737900000,-44.8395250900000,-43.8294532400000,-43.8979008100000,-42.8727930000000,-44.0855510100000,-44.0455727400000,-43.7838601800000,-44.3235233900000,-44.2070335300000,-42.1623872500000,-41.9416677300000,-42.3257167800000;-33.3552734200000,-34.7105527200000,-34.2466567000000,-33.3896474200000,-33.8108914500000,-32.8871115100000,-32.8294975600000,-34.8685877300000,-33.7653911400000,-34.0958960500000,-34.6973500500000,-33.9055753800000,-32.9884034200000,-33.1927789600000,-33.1043434400000,-32.8402881500000,-34.1229081200000,-34.4547485200000,-34.2168906100000,-35.0563307700000,-34.8655242900000,-33.4539251500000,-33.2630088700000,-32.8435245000000,-33.9351614600000,-35.4919571500000,-34.7545915600000,-35.3437705800000,-33.9934470200000,-33.7149886300000,-33.5327598100000,-32.8657711600000,-33.0073932900000,-32.8988689400000,-33.7175404400000;-40.6492978600000,-41.5095779100000,-41.4819463200000,-40.7571235900000,-40.7543743700000,-41.2080248400000,-42.9378192100000,-42.2625498000000,-42.8849073400000,-43.4360800700000,-43.4547431300000,-40.3384856000000,-42.4732324000000,-41.5821695500000,-41.7407873700000,-41.7075316600000,-40.8444134900000,-40.6598643300000,-39.8066298400000,-40.6950662000000,-41.2461544700000,-40.9966587800000,-41.9249269900000,-42.8440445300000,-43.4520865700000,-44.1562484900000,-44.0496582800000,-44.1729995400000,-42.5660881600000,-43.0110216600000,-42.5993333200000,-40.6817983300000,-42.0452609000000,-42.5217405400000,-42.2647032900000;-38.7066983300000,-38.0149321200000,-38.3386955000000,-37.2214521100000,-37.7625999300000,-38.9238436100000,-37.7955030400000,-39.3438401600000,-39.0357713300000,-39.9032726900000,-41.1208112200000,-39.8136468700000,-39.1403488800000,-39.5082653000000,-40.2532160200000,-40.0355973700000,-39.3945890000000,-40.7203199700000,-39.1161592300000,-38.9733598400000,-37.8936129200000,-39.5292367700000,-40.0966976300000,-41.3352753200000,-38.8244465400000,-38.2511158700000,-39.6096607800000,-38.9640933100000,-39.5138253300000,-39.9361427600000,-39.2382044300000,-38.7675359500000,-38.8226988400000,-39.2171229000000,-39.2784853400000;-41.9974520200000,-42.1822036200000,-42.7859605500000,-42.8718625700000,-43.0208151300000,-42.6097969200000,-42.9980253500000,-43.4015603900000,-43.5130250300000,-44.3810494000000,-44.3256035000000,-44.5078510600000,-43.5118671400000,-44.0793764100000,-41.5043770600000,-41.9209452600000,-41.6135600300000,-39.2314010400000,-42.0081772500000,-41.7111390100000,-41.5555181500000,-40.8660227300000,-42.3204463500000,-42.1204484800000,-42.7605487300000,-40.7601991900000,-42.9163953400000,-43.7120609700000,-43.2691704600000,-43.1440133300000,-42.7921089100000,-43.9770591000000,-41.4842790100000,-42.5791147100000,-41.9699044900000;-36.4004662000000,-37.7587316300000,-38.9837332300000,-39.5515792600000,-37.8369444700000,-38.8036363200000,-39.2710902700000,-38.6357110100000,-38.3568392600000,-39.4254779600000,-38.7948097900000,-36.9536461100000,-39.9709279400000,-35.7674806500000,-37.2358031700000,-34.1902396400000,-34.5033885100000,-35.3970019400000,-39.6206701500000,-39.5529879200000,-39.9983260900000,-40.2717137600000,-40.1348455500000,-39.2168803300000,-39.2431571800000,-39.0752567300000,-39.2671393200000,-38.1919202200000,-36.4439717700000,-35.1492405500000,-34.3231146600000,-34.2383466200000,-36.5068154000000,-36.1296650000000,-35.3457791000000;-32.0443847500000,-33.2224950300000,-30.4838928400000,-32.4239453200000,-29.1739223000000,-30.9510439500000,-34.2308868200000,-29.9721675200000,-28.6658883100000,-29.3189648400000,-28.7893658400000,-28.6430777700000,-32.8610430100000,-36.5691151400000,-34.2718250400000,-31.6477865100000,-29.7819441600000,-31.3632233500000,-29.4791261300000,-31.4312518200000,-33.1257684500000,-32.6372310100000,-29.1018122000000,-29.4657171900000,-28.2656090200000,-29.1173047300000,-29.5911455300000,-32.6229375500000,-30.6864207300000,-35.5596356900000,-35.9993889700000,-34.8042246600000,-32.1935187700000,-33.3473257100000,-32.8507903600000;-31.1551366300000,-32.1472087300000,-32.7674991300000,-30.6394125900000,-30.3974598500000,-30.9487997100000,-30.9180472200000,-30.6498813600000,-30.1360560500000,-30.0822554000000,-30.0259416900000,-30.4255395600000,-30.0926120900000,-29.7709110300000,-29.9050572400000,-30.0515741800000,-29.8001906600000,-30.2610965600000,-30.8842647700000,-32.0544587600000,-32.1305761300000,-31.7342993600000,-30.6676508000000,-30.6750502700000,-30.3333051200000,-30.7514257400000,-30.5566909500000,-30.4513771900000,-30.1843314700000,-29.9954548800000,-30.4198411900000,-30.8456988400000,-30.4016284200000,-30.5634945500000,-29.8315667700000;-38.9316072300000,-39.8311303900000,-38.6258724400000,-39.4080199600000,-38.3779463900000,-39.3387339100000,-39.3222757800000,-39.5624084900000,-39.8619105300000,-39.8583479000000,-39.0350652200000,-38.5473275800000,-38.3858681300000,-39.4834953500000,-39.2141743400000,-39.8373902000000,-39.5423044800000,-39.5385215700000,-39.1453074400000,-39.6181950700000,-39.7253147600000,-39.0892669900000,-39.5145987000000,-39.9872094300000,-38.8234959400000,-39.6031785100000,-39.9488950200000,-39.2231700200000,-39.2593929300000,-38.6067880400000,-39.3013581100000,-39.9459969400000,-39.4790704700000,-39.0675848100000,-39.5150017800000;-30.4322833000000,-29.6515796400000,-34.6259611200000,-35.3938291000000,-33.4781945700000,-34.2019527800000,-33.0870066600000,-35.3425242400000,-33.0457108200000,-30.5571984700000,-30.2722508500000,-32.0355636400000,-34.7790876000000,-33.4277199500000,-34.0403428600000,-31.9464419900000,-30.7131232600000,-32.3287215000000,-34.7766993800000,-35.2492223800000,-33.3786029900000,-33.4627369300000,-35.2587346800000,-34.4668741300000,-34.8572516200000,-34.4931164500000,-34.8912189000000,-32.5224197800000,-32.8125833100000,-30.6282465000000,-34.3571614700000,-30.1994365400000,-32.2945509500000,-33.3769670900000,-34.0903329400000;-36.5175264900000,-35.9008458200000,-35.2153232500000,-36.7157203600000,-36.3474185800000,-35.9154623200000,-36.1005726800000,-35.4940647600000,-35.6441476600000,-35.9482846600000,-36.1227004300000,-35.9511632400000,-36.2318777100000,-36.1614401700000,-35.8367990600000,-35.8699686300000,-35.8594902000000,-35.7001149500000,-36.2865231200000,-36.5697445300000,-35.8008539800000,-36.1430894600000,-35.8648354000000,-36.9674636600000,-37.0448008800000,-36.9599140800000,-36.8690950700000,-37.1614048500000,-36.7878207200000,-36.6886824100000,-37.0957131200000,-36.5038382400000,-36.7832533100000,-36.5864133500000,-36.2126615500000;-42.0392686400000,-41.1711351000000,-41.5612406800000,-42.6909624800000,-42.8880998000000,-42.8908618100000,-44.0297526500000,-44.1239428200000,-42.7426340300000,-45.0311321900000,-43.9273352200000,-44.4647542100000,-43.6947615200000,-42.9352494300000,-42.6454084800000,-42.9798878400000,-42.8524593500000,-42.3127979500000,-39.7846632700000,-42.1466179800000,-42.7234741100000,-43.3367501200000,-43.4338092600000,-44.4586819500000,-43.3730433400000,-44.2517903600000,-44.1770690900000,-43.7211817400000,-44.5075279900000,-44.1986381400000,-43.6116806600000,-43.4305455200000,-42.8701147900000,-42.2444979100000,-42.4240809900000;-42.7403509700000,-43.9274183200000,-43.9478988600000,-44.1171467800000,-43.9732162000000,-45.7313149600000,-45.2141219500000,-45.1951682900000,-45.8536267000000,-45.5462647200000,-44.9888798200000,-44.1471218500000,-45.1724569800000,-44.3951531000000,-43.7515679000000,-42.5386576500000,-42.2164296800000,-42.1252222700000,-42.7076242500000,-44.0304070100000,-43.5395170100000,-43.7936098000000,-44.4193107600000,-45.9090704500000,-45.9559559500000,-45.6589327900000,-45.5442130800000,-44.7270273100000,-44.8491236600000,-44.8439194600000,-45.1467253400000,-44.8428724400000,-44.1917357100000,-43.1133384900000,-43.3033538800000;-34.1796573200000,-35.2333016000000,-34.6425412500000,-35.4895254200000,-36.0665726500000,-36.8885257100000,-35.5453430300000,-34.2399555700000,-36.5713976700000,-34.8788178600000,-34.9380229100000,-34.7041717100000,-34.4561970600000,-35.4618449600000,-34.9750395300000,-34.1111172100000,-33.8393179200000,-35.1604170800000,-35.2671103500000,-34.1833130900000,-34.2679277400000,-33.8302000900000,-37.1571335400000,-34.6420103500000,-35.2669125000000,-37.1566294300000,-35.1777369900000,-33.4665053200000,-33.7368564300000,-35.4911021800000,-36.0025911700000,-36.6928386700000,-35.2313357800000,-34.7067263300000,-34.5702539100000;-47.3602487900000,-46.0618493200000,-46.2896789000000,-46.5657424000000,-46.5630170500000,-45.6027190000000,-45.8345440300000,-46.4268799100000,-46.2193341000000,-47.0243959800000,-47.1562652400000,-46.9027892800000,-47.8844329300000,-47.3997396600000,-47.5684950600000,-47.7294137100000,-47.0446783600000,-47.7378484500000,-47.6450047800000,-46.2402516400000,-46.9152415900000,-46.2212204100000,-47.1139624900000,-46.5747592800000,-46.8530685800000,-46.2428230900000,-45.6838973500000,-46.8627944500000,-47.4710047200000,-47.5969037900000,-46.9020740000000,-47.1886161500000,-46.9701435500000,-48.1239455200000,-47.0433440700000;-43.7763745800000,-40.9162770900000,-42.4638449100000,-40.6940031000000,-41.9110362900000,-42.8716454800000,-42.0458514500000,-41.3328430900000,-42.1387204700000,-41.3521864600000,-41.6410627700000,-41.9478702300000,-43.1034209200000,-42.1212453400000,-40.8524489500000,-41.3432659700000,-40.4751109200000,-41.7468210900000,-40.7354994100000,-41.2674112900000,-42.9729064800000,-41.5604588700000,-39.5344393000000,-40.5115233100000,-39.8597573500000,-39.2684188300000,-41.0847849600000,-42.3702653200000,-42.1410115800000,-41.6296157600000,-41.5010278500000,-41.6192748200000,-40.9979167200000,-40.4015686800000,-41.1524670000000;-41.0182110800000,-38.5768500200000,-37.5392323000000,-38.8581749500000,-43.7271819700000,-38.5535618700000,-39.0625468900000,-39.1802974600000,-38.6417694400000,-40.3263587300000,-40.9686517900000,-40.5912029800000,-39.2984490900000,-38.8634558600000,-38.4866768400000,-42.5496647300000,-42.9967623700000,-44.6484586300000,-39.8679987600000,-39.0379111900000,-39.4340579400000,-38.2636288600000,-40.8879959300000,-38.5335361500000,-38.8698649600000,-39.9264092700000,-42.0477327600000,-41.0749632900000,-39.2648357500000,-43.7841523600000,-42.7803055500000,-45.1422551400000,-40.1944444200000,-39.9114797900000,-42.2424486900000;-43.1649107100000,-44.2161920200000,-43.6950640800000,-44.8942928300000,-45.0620641900000,-45.2692217000000,-45.9386882400000,-45.4609382600000,-45.9848837600000,-44.8796893600000,-45.0905470500000,-45.4116420800000,-45.0586165700000,-43.8962818400000,-44.1535804500000,-42.9881395200000,-44.2319020300000,-42.9771279500000,-44.3088511000000,-43.8024154100000,-44.0235360300000,-44.3763064400000,-44.4210975500000,-44.7965701000000,-45.8564788300000,-45.9565491900000,-45.3984159600000,-46.2622367000000,-45.6900345200000,-45.2915882700000,-45.4764576600000,-44.4822805600000,-43.8876009800000,-44.2298227000000,-42.1820815100000];
 flyNum = [218;224;232;241;271;272;277;278;281;293;304;305;310;311;312;337;338;355;358;359;360;363];
 
+
 % %%  Control data sets::
 % clear all; close all
 % ephysSettings;
@@ -26,6 +28,7 @@ flyNum = [218;224;232;241;271;272;277;278;281;293;304;305;310;311;312;337;338;35
 % OL_after2BarTuningCurve = [2.30302953300000,1.27641456800000,1.81874412800000,0.226656898000000,-0.416150466000000,0.645552416000000,0.161282630000000,0.354680288000000,1.22580923100000,1.02805407000000,1.93369535000000,2.32214945500000,2.76887509700000,1.49214238800000,0.118758336000000,-0.433759645000000,-0.315602911000000,-1.21053773300000,-2.78363451400000,-1.69578035400000,-1.92701790100000,-2.49590591900000,-2.61044174000000,-2.78821436500000,-0.645603303000000,-2.15781923700000,-2.44559062500000,-2.16284632900000,-2.23110451800000,-2.08790572600000,-2.43293399100000,-2.84458130200000,-1.84720282600000,-1.39069410200000,-0.514534021000000;-3.40342154200000,-2.83001711400000,-4.02957005500000,-5.29404406700000,-4.19501139900000,-4.76152280500000,-5.39205114500000,-5.30792135700000,-5.71447661000000,-4.29055423400000,-4.69331236500000,-4.94366032900000,-3.35854622000000,-2.61839930400000,-2.07981808200000,1.01241770200000,0.170872558000000,3.21787680100000,2.51398499500000,2.12736062800000,1.88148353300000,3.22760048400000,2.58174642000000,1.44312734800000,0.817439500000000,2.80702872300000,2.66373781200000,2.50290980400000,1.70357004400000,1.05076125600000,3.75195264100000,2.60936597000000,1.99353100800000,-0.204640948000000,-0.0868428630000000;-1.90974492800000,-1.19398913700000,-1.14081155900000,-2.29133679800000,-3.18940985500000,-1.44275303900000,-2.54921899600000,-3.27924127000000,-1.45751369100000,0.0278147810000000,-0.344115604000000,-1.18574486000000,-1.73164901100000,-0.794367115000000,0.000584844000000000,-0.781392010000000,-0.595964928000000,0.784838879000000,1.76142255600000,1.63546814500000,1.11399099000000,-1.00624104200000,-0.666466123000000,-0.428722740000000,-0.337846524000000,0.809026696000000,0.187285737000000,-0.725523595000000,0.398045079000000,0.295064463000000,1.12374390100000,1.14717527300000,0.263522088000000,0.651584501000000,0.595756097000000;-1.27877831000000,-1.05712859900000,-0.758551075000000,-0.510410620000000,-0.844127824000000,0.262674954000000,-1.21945485700000,0.265585110000000,-0.458286042000000,-0.927545276000000,-0.560185571000000,-0.325249890000000,-0.744777814000000,-0.828202118000000,-0.368388128000000,-1.09022407500000,-0.497119661000000,-1.41976083500000,-0.541535724000000,-0.829857669000000,-1.52170023900000,-1.22827576400000,-1.09632901300000,-1.63061752100000,-1.55485038900000,-3.37942054700000,-2.22357685700000,-3.16663932100000,-1.88368042200000,-1.22768656800000,-1.53395476900000,-0.961673266000000,-0.807567882000000,-1.02183846100000,-1.34410120100000;-0.240112073000000,-1.83129798200000,-1.05424850700000,-1.63389901300000,-1.32900776800000,-1.22634000800000,-0.214007749000000,-1.77811880600000,-0.880287641000000,-0.371909711000000,0.175616406000000,-0.261263881000000,-0.528097921000000,-0.612395256000000,-1.25556183500000,-0.566955842000000,-0.940079041000000,-1.68083980400000,-3.31359850000000,-2.56032557800000,-1.83202016100000,-2.36412695900000,-2.17559910400000,-0.844281797000000,-2.29357038300000,-2.03721960400000,-3.53256863700000,-1.74458809100000,-2.80553019100000,-1.18675080800000,-3.60618223400000,-1.90375506700000,-1.54539706400000,-2.06731686800000,-1.62824269400000];
 % CL_2BarTuningCurve = [-44.2968438300000,-44.8510029100000,-45.2940545600000,-45.0921278300000,-45.0996471400000,-44.2494102400000,-44.6130876500000,-44.1799040500000,-44.1001023700000,-44.9545072700000,-43.3685206500000,-41.8569248600000,-43.5609511200000,-43.3299815100000,-44.7222756900000,-43.9375668800000,-44.7024960600000,-46.6153470100000,-46.6274352700000,-47.6495354400000,-47.3390454600000,-47.9689976900000,-47.6734730500000,-47.5039649100000,-47.0396793500000,-47.4751467000000,-47.3512030100000,-47.6113884000000,-47.3975763100000,-48.2597941000000,-47.5994319800000,-46.6161395100000,-46.0426186000000,-46.7959790500000,-46.4429373600000;-39.5859807100000,-40.3126297500000,-41.8981427700000,-42.7553367800000,-43.0499488100000,-42.3712004700000,-43.4957756000000,-42.5989618700000,-42.8938490800000,-42.4806054300000,-42.8660001300000,-41.6817268500000,-42.3661513000000,-41.7061501800000,-39.7550167600000,-37.3262908800000,-35.3215073300000,-34.9713597000000,-34.3993293800000,-35.9173577600000,-34.6635764100000,-34.2251286900000,-34.2941605500000,-34.2430545100000,-34.0961041800000,-34.4892903600000,-34.2407290300000,-34.5304896900000,-34.5932270500000,-35.4715737400000,-35.3006278900000,-35.9418819200000,-36.0957134400000,-36.4121818100000,-36.9992748500000;-39.8378719300000,-40.7036296100000,-43.2601254700000,-42.4283213800000,-43.6675215100000,-41.8012895700000,-41.0068775400000,-42.0634680900000,-43.1508107000000,-41.6816642800000,-42.2873075700000,-41.7140548200000,-41.8716080100000,-41.0556554500000,-40.6949544800000,-41.8506034900000,-41.7208168200000,-40.5185706700000,-42.5136202300000,-42.2136900800000,-41.6381554900000,-42.3162461200000,-42.6494646400000,-42.3181614900000,-42.2985271700000,-41.7810285300000,-41.4481703000000,-43.0203154000000,-41.4668691300000,-42.2452384300000,-41.5225227500000,-41.0317478900000,-38.7526084200000,-40.5283618500000,-40.1339373100000;-45.7821395900000,-45.7206233900000,-45.6215892000000,-45.4720917400000,-44.9178886600000,-45.5217912700000,-45.8219310500000,-45.8002102100000,-45.6052903200000,-45.8129716200000,-46.0272790000000,-45.5554699800000,-45.0084414700000,-45.1733603000000,-45.2683517700000,-45.5325993700000,-44.1896263000000,-44.1968238000000,-44.5511058700000,-44.5321093100000,-43.9765979600000,-44.5208973200000,-43.9968250400000,-44.6162008300000,-44.9523487900000,-44.6525743600000,-44.2944146900000,-43.3233926600000,-43.1718393900000,-44.7383896500000,-44.9970860400000,-44.1353489200000,-44.6413732500000,-44.1771366100000,-44.5112206200000;-45.6937574300000,-46.0723074300000,-45.4111857300000,-45.9722758100000,-46.0395821800000,-46.7446380200000,-47.1285177200000,-45.9028672500000,-46.4676466900000,-45.9206203100000,-45.0175985900000,-44.8977219900000,-45.1527576900000,-45.4814330800000,-45.6035366600000,-46.2031285500000,-46.2977158000000,-45.8470083100000,-46.1535935000000,-46.1056762700000,-46.0753677700000,-46.2201237100000,-46.5122443100000,-46.6693083300000,-46.8491494300000,-47.3640962900000,-46.5629019400000,-47.2410601100000,-46.9389714400000,-46.0345752300000,-46.4156576300000,-46.1083549400000,-47.1079563500000,-46.0948021100000,-46.6062974900000];
 % flyNum = [364;373;380;381;385];
+
 %% Variables
 DEGREE_PER_LED_SLOT = 360 / 96;  % 
 POSSIBLE_BAR_LOCATIONS = 2:2:71;
@@ -48,12 +51,13 @@ voltageRangeAfterOL = [];
 for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     
     % Smooth the data with median filter if user wants to:
-    ORDER_MEDFILTER =2;  % order for median filter smooth  
-    currCL_1bar = medfilt1( CL_before1BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
-    currCL_2bar = medfilt1( CL_2BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
+    % order for median filter smooth
+    ORDER_MEDFILTER =2; %    
+        currCL_1bar = medfilt1( CL_before1BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
+        currCL_2bar = medfilt1( CL_2BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
         
-    currOL_before = medfilt1( OL_oneBarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
-    currOL_after = medfilt1( OL_after2BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
+        currOL_before = medfilt1( OL_oneBarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
+        currOL_after = medfilt1( OL_after2BarTuningCurve(i,:), ORDER_MEDFILTER, 'truncate'); % Median filtering of the trace
 
     
     % find change for smoothed curves after - before for each tuning curve
@@ -68,7 +72,7 @@ for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     netVisualTuningChange(i) = sum ( abs( smoothedDifference_OL ) );
     netVisualTuningChangeByBarLoc(i) = (sum ( abs( smoothedDifference_OL ) ) ) / length( barPositionDegreesFromMidline );
     
-    [R_OL, ~] = corrcoef( currOL_before,  currOL_after );
+    [R_OL, P] = corrcoef( currOL_before,  currOL_after );
     RvalueBetweenOL(i) = R_OL( 1, 2);
      
     shapeChange_OL(i) = 1 - (RvalueBetweenOL(i))^2;
@@ -130,7 +134,7 @@ for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     normDifference_OL = normCurrOL_after - normCurrOL_before;
     
     normVisualTuningChange(i) = sum ( abs( normDifference_OL ) );
-    
+    %normVisualTuningChange(i) = netVisualTuningChange(i) / ( voltageRangeBeforeOL(i) + voltageRangeAfterOL(i) );
     % find change after - before for each tuning curve
     percentChange_OL = (currOL_after - currOL_before) ./ currOL_before;
     precentVisualTuningChange(i) = sum ( abs( percentChange_OL ) );
@@ -143,7 +147,7 @@ for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     % add grey dotted line at 0
     plot( barPositionDegreesFromMidline, zeros( 1, length(barPositionDegreesFromMidline) ), 'Color', [ 0.7 , 0.7, 0.7] ); hold on;
     plot( barPositionDegreesFromMidline, smoothedDifference_CL ,'Color', [ 0 , 0, 0] );
-    text(barPositionDegreesFromMidline(1),max( smoothedDifference_CL ) ,['change:' newline ' after- before (CL)'], 'Color', [ 0 , 0, 0])
+    %text(barPositionDegreesFromMidline(1),max( smoothedDifference_CL ) ,['change:' newline ' after- before (CL)'], 'Color', [ 0 , 0, 0])
     
     niceaxes; box off
     xlim([ -120 135])
@@ -154,7 +158,7 @@ for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     % add grey dotted line at 0
     plot( barPositionDegreesFromMidline, zeros( 1, length(barPositionDegreesFromMidline) ), 'Color', [ 0.7 , 0.7, 0.7] ); hold on;
     plot( barPositionDegreesFromMidline, smoothedDifference_OL ,'Color', [ 0 , 0, 0] );
-    text(barPositionDegreesFromMidline(1),max( smoothedDifference_OL ) ,['change:' newline ' after- before (OL)'], 'Color', [ 0 , 0, 0])
+    %text(barPositionDegreesFromMidline(1),max( smoothedDifference_OL ) ,['change:' newline ' after- before (OL)'], 'Color', [ 0 , 0, 0])
     
     niceaxes; box off
     xlim([ -120 135])
@@ -182,46 +186,185 @@ for i = 1: length ( OL_oneBarTuningCurve(:,1) )
     pvalOfSlope = fitModel.Coefficients.pValue(2);    
     slopeOLvsCLDifferenceUnSmoothed(i) = slope;
 
-    [R, ~] = corrcoef( nonSmoothedDifference_CL,  nonSmoothedDifference_OL );
-    Rvalue(i) = R( 1, 2);
+     [R, P] = corrcoef( nonSmoothedDifference_CL,  nonSmoothedDifference_OL );
+     Rvalue(i) = R( 1, 2);
     pvalOfSlopeAcrossFliesUnsmoothed( i ) = pvalOfSlope;
     
-    % linear regression of smoothed difference:
+     % linear regression of smoothed difference:
     fitModel = fitlm( smoothedDifference_CL,  smoothedDifference_OL,  'linear' );
     slopeSmooth = fitModel.Coefficients.Estimate(2);
     pvalOfSlopeSmooth = fitModel.Coefficients.pValue(2);
     title([ 'Smoothed: Slope:'  num2str(slopeSmooth)   ' pval:' num2str(pvalOfSlopeSmooth) ])
     
     slopeOLvsCLDifferenceSmoothed(i) = slopeSmooth;
-    [R, P] = corrcoef( smoothedDifference_CL,  smoothedDifference_OL );
-    Rvalue(i) = R( 1, 2);
+     [R, P] = corrcoef( smoothedDifference_CL,  smoothedDifference_OL );
+     Rvalue(i) = R( 1, 2);
     pvalOfSlopeAcrossFliesSmoothed( i ) = pvalOfSlopeSmooth;
     
-    title([ 'R: ' num2str( Rvalue(i) ) ' Slope:'  num2str(slopeOLvsCLDifferenceSmoothed(i))   ' pval:' num2str( pvalOfSlopeAcrossFliesSmoothed( i )) ])   
+    title([ 'R: ' num2str( Rvalue(i) ) ' Slope:'  num2str(slopeOLvsCLDifferenceSmoothed(i))   ' pval:' num2str( pvalOfSlopeAcrossFliesSmoothed( i )) ])
+    
+    
+% % % % %     % save current plot
+%         dir = '/Users/evettita/Dropbox (HMS)/FisherLuWilson ms/revision/Figures/Figure 5/';
+%         fileName = [ dir 'flyNum' num2str( flyNum(i) ) '_remappingUsingSingleOLtrials.eps' ];
+%         print( fileName, '-dpdf');
+    
 end
 
-%% Scatter of change in receptive field shape (1-R^2) vs absolute change ( sum(abs(Delta)) / # cue positions )
-figure('Position',[50, 50, 1000, 800]); set(gcf, 'Color', 'w');
+%% Scatter of visual weigth shape change (1-R^2) vs visual weigth size change ( sum(abs(DElta))
+
+figure;set(gcf, 'Color', 'w');
 % plot all sloped in the data set:
 scatter(  shapeChange_OL , netVisualTuningChangeByBarLoc , 'filled' ); hold on;
 
+
 % linear regression
 fitModel = fitlm( shapeChange_OL,  netVisualTuningChangeByBarLoc);
+%plot(fitModel);
 Rsquared = fitModel.Rsquared.Ordinary;
 pvalOfSlope = fitModel.Coefficients.pValue(2);
 
-ylabel( 'absolute change : visual weight size change sum(abs(\Delta))/#cue positions (mV)');
-xlabel( 'change in receptive field shape : visual weight shape change ( 1 - R^2)');
+ylabel( 'visual weight size change sum(abs(\Delta)) (mV)');
+xlabel( 'visual weight shape change ( 1 - R^2)');
 
 % displacement for labels
 dx = 0.02; dy = 0;
 textLabels = cellstr( num2str(flyNum));
-text( shapeChange_OL+dx ,netVisualTuningChangeByBarLoc+ dy , textLabels)
+text( shapeChange_OL+dx ,netVisualTuningChangeByBarLoc+ dy ,     textLabels)
 ylim([0, 3.5]);
 
-title( [ 'change in receptive field shape(1-R^2) vs absolute change (sum(abs\Delta))/#positions. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
-%% Scatter of absolute change ( sum(abs(Delta)) / # cue positions ) vs modulation by heading during 2 bar training (max-min)
- figure('Position',[50, 50, 1000, 800]); set(gcf, 'Color', 'w');
+title( [ 'visual shape change (1-R^2) vs visual size change (sum(abs\Delta)). R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+%% % % %     % save current plot
+        dir = 'F:\Dropbox (HMS)\FisherLuWilson ms\revision\Figures\Figure 5\';
+        fileName = [ dir 'Scatter_sizeChange_vs_weightChange.eps' ];
+        print( fileName, '-dpdf');
+
+%% Scatter of training heading modulations vs visual weigth size change ( sum(abs(DElta))
+% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL, netVisualTuningChangeByBarLoc , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,netVisualTuningChangeByBarLoc+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL,  netVisualTuningChangeByBarLoc);
+%plot(fitModel);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+ylim([0 3.5]);
+xlabel(' 2 bar closed loop modulation (mV) (smoothed)')
+ylabel( 'visual weight size change sum(abs(\Delta)) (mV)');
+title( [ '2 bar CL voltage modulation vs net visual tuning change/#position. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+%% % save current plot
+        dir = 'F:\Dropbox (HMS)\FisherLuWilson ms\revision\Figures\Figure 5\';
+        fileName = [ dir 'Scatter_sizeChange_vs_closedLoopMod.eps' ];
+        print( fileName, '-dpdf');
+
+
+%% Scatter of training heading modulations vs visual weigth shape change ( 1- R^2)
+% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL, shapeChange_OL , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy =0;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,shapeChange_OL+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL,  shapeChange_OL);
+plot(fitModel);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV) (smoothed)')
+ylabel( 'visual weigtht shape change (1 - R^2)');
+title( [ '2 bar CL voltage modulation vs net visual tuning change/#position. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+
+%% Plot strip chart of slope values for after-before analysis
+figure;set(gcf, 'Color', 'w');
+
+% plot all sloped in the data set:
+scatter( ones(length(slopeOLvsCLDifferenceSmoothed),1), slopeOLvsCLDifferenceSmoothed  ); hold on;
+dx = 0.1;
+textLabels = cellstr( num2str(flyNum));
+
+text(  ones(1, length(flyNum))+dx , slopeOLvsCLDifferenceSmoothed ,     textLabels);
+
+% only plot data with sig pval for slope:
+pValThreshold = 0.05;
+slopeToPlot = slopeOLvsCLDifferenceSmoothed ( pvalOfSlopeAcrossFliesSmoothed < pValThreshold); 
+
+scatter( ones(length(slopeToPlot),1), slopeToPlot , 'filled' ); hold on;
+ylim([-0.2, 1]);
+
+ylabel( 'slope, (CL after - CL before) vs (OL after - OL before)');
+niceaxes;
+title('From smoothed data, filled=sign slope pval<0.05');
+
+% % save strip plot
+% dir = '/Users/evettita/Dropbox (HMS)/FisherLuWilson ms/figure 4/';
+% fileName = [ dir 'TuningChangeSlope.eps' ];
+% print( fileName, '-dpdf');
+%% Plot strip chart of visual tuning changes
+figure;set(gcf, 'Color', 'w');
+
+% plot all sloped in the data set:
+scatter( ones(length(netVisualTuningChangeByBarLoc),1), netVisualTuningChangeByBarLoc  ); hold on;
+dx = 0.1;
+textLabels = cellstr( num2str(flyNum));
+
+text(  ones(1, length(flyNum))+dx , netVisualTuningChangeByBarLoc ,     textLabels);
+
+
+ylabel( 'visual weight size change (mean(abs(\Delta) (smoothed) (mV)');
+niceaxes;
+title('From smoothed data');
+
+% % save strip plot
+dir = '/Users/evettita/Dropbox (HMS)/FisherLuWilson ms/figure 5/';
+fileName = [ dir 'VisualTuningChanges.eps' ];
+print( fileName, '-dpdf');
+
+%% strip chart of R values between viusla tuning before vs after
+figure;set(gcf, 'Color', 'w');
+
+% plot all sloped in the data set:
+scatter( ones(length(RvalueBetweenOL),1), RvalueBetweenOL  ); hold on;
+dx = 0.1;
+textLabels = cellstr( num2str(flyNum));
+
+text(  ones(1, length(flyNum))+dx , RvalueBetweenOL ,     textLabels);
+ylim([0 1]);
+
+ylabel( 'corrcoef (R) early vs late visual tuning');
+niceaxes;
+title('From smoothed data');
+
+
+
+%% Scatter of R values and net visual change:
+
+figure;set(gcf, 'Color', 'w');
+% plot all sloped in the data set:
+scatter(  RvalueBetweenOL , netVisualTuningChangeByBarLoc, 'filled'  ); hold on;
+ylabel( 'net visual change/ #positions (smoothed) (mV)');
+xlabel( 'corrcoef (R) early vs late visual tuning');
+
+% displacement for labels
+dx = 0.05; dy = 0;
+textLabels = cellstr( num2str(flyNum));
+text( RvalueBetweenOL+dx ,netVisualTuningChangeByBarLoc+ dy ,     textLabels)
+ylim([0, 3.5]);
+
+%% Summary plots for data set:
+% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
 scatter( voltageRange2barCL, netVisualTuningChangeByBarLoc , 'filled' ); hold on
 % displacement for labels
 dx = 0.1; dy = 0.1;
@@ -233,21 +376,222 @@ fitModel = fitlm( voltageRange2barCL,  netVisualTuningChangeByBarLoc);
 Rsquared = fitModel.Rsquared.Ordinary;
 pvalOfSlope = fitModel.Coefficients.pValue(2);
 
-ylim([0 3.5]);
 xlabel(' 2 bar closed loop modulation (mV) (smoothed)')
-ylabel( 'visual weight size change sum(abs(\Delta)) (mV)');
-title( [ '2 bar CL voltage modulation vs absolute change (sum(abs\Delta))/#positions. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+ylabel(' net visual change/ #positions (smoothed) (mV)');
+title( [ '2 bar CL voltage modulation vs net visual tuning change/#position. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
 
-%% Plot strip chart of absolute change (sum(abs\Delta))/#positions
-figure;set(gcf, 'Color', 'w');
 
-% plot all sloped in the data set:
-scatter( ones(length(netVisualTuningChangeByBarLoc),1), netVisualTuningChangeByBarLoc  ); hold on;
-dx = 0.1;
+%% Summary plots for data set:
+% scatter of R value of (CL after - CL before) vs (OL after - OL before)
+% vs. net visual modulation by position
+figure; set(gcf, 'Color', 'w');
+scatter( netVisualTuningChangeByBarLoc, Rvalue , 'filled' ); hold on
+% displacement for labels
+dx = 0.05; dy = 0.05;
 textLabels = cellstr( num2str(flyNum));
+text( netVisualTuningChangeByBarLoc+dx ,Rvalue+ dy ,     textLabels)
 
-text(  ones(1, length(flyNum))+dx , netVisualTuningChangeByBarLoc , textLabels);
+% linear regression
+fitModel = fitlm( netVisualTuningChangeByBarLoc,  Rvalue);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
 
-ylabel( 'absolute change (sum(abs\Delta))/#positions (mV)');
-niceaxes;
-title('absolute change (sum(abs\Delta))/#positions (smoothed)');
+xlabel(' net visual change by position (smoothed)')
+ylabel('R value, (CL after - CL before) vs (OL after - OL before) (not Smoothed) ');
+title( [ 'net Visual change  vs R value.   R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+
+
+%% Summary plots for data set:
+% scatter of R value of (CL after - CL before) vs (OL after - OL before) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL, Rvalue , 'filled' ); hold on
+% displacement for labels
+dx = 0.05; dy = 0.05;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,Rvalue+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL,  Rvalue);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV) (smoothed)')
+ylabel('R value, (CL after - CL before) vs (OL after - OL before) (not Smoothed) ');
+title( [ '2 bar CL voltage modulation vs slope. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+
+
+%% Experimental plotting: below:
+
+
+
+
+%% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation 
+% %normalized tuning curve used
+
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL, normVisualTuningChange , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,normVisualTuningChange+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL,  normVisualTuningChange);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' normalized visual change: (sum(abs( normalized after - normalized before) ');
+title( [ '2 bar CL voltage modulation vs normalized visual tuning change. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+%% Angular speed scatter
+angularSpeed = [64.4211000000000;41.5547000000000;32.5722000000000;19.7972000000000;22.7882000000000;18.5484000000000;22.0347000000000;18.7156000000000;25.0375000000000;42.4911000000000;11.3539000000000;28.2091000000000;35.6406000000000;46.5196000000000;36.0773000000000;14.5708000000000];
+
+figure; set(gcf, 'Color', 'w');
+scatter( angularSpeed, normVisualTuningChange , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum));
+text( angularSpeed+dx ,normVisualTuningChange+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( angularSpeed,  normVisualTuningChange);
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' normalized visual change: (sum(abs( normalized after - normalized before) ');
+title( [ 'Angular speed vs normalized visual tuning change. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+%% scatter with angular speed but only stronger mod cells
+Threshold1barCL = 5;% mV
+indexCellToInclude = find( voltageRange1barCL > Threshold1barCL);
+
+% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
+scatter( angularSpeed(indexCellToInclude) , normVisualTuningChange(indexCellToInclude) , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum(indexCellToInclude) ));
+text( angularSpeed(indexCellToInclude) +dx ,normVisualTuningChange(indexCellToInclude) + dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( angularSpeed(indexCellToInclude),  normVisualTuningChange(indexCellToInclude));
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' net visual change (sum(abs(OL after- OL before)) ');
+title( [ '2 bar CL voltage modulation vs net visual tuning change. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+
+
+%% same scatter only including cells with strong 1 bar CL modulation:
+
+%Threshold1barCL = 5;% mV
+ThresholdAngularSpeed = 20;% deg/s
+%indexCellToInclude = find( voltageRange1barCL > Threshold1barCL);
+indexCellToInclude = find( angularSpeed > ThresholdAngularSpeed);
+
+
+% scatter of integral(abs( after-before OL) vs. 2 bar CL voltage modulation
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL(indexCellToInclude) , netVisualTuningChange(indexCellToInclude) , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum(indexCellToInclude) ));
+text( voltageRange2barCL(indexCellToInclude) +dx ,netVisualTuningChange(indexCellToInclude) + dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL(indexCellToInclude),  netVisualTuningChange(indexCellToInclude));
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' net visual change (sum(abs(OL after- OL before)) ');
+title( [ '2 bar CL voltage modulation vs net visual tuning change. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+
+
+
+%% scatter another metric for net change in correlation between OL before and OL after:
+Threshold1barCL = 5;% mV
+indexCellToInclude = find( voltageRange1barCL > Threshold1barCL);
+
+
+figure; set(gcf, 'Color', 'w');
+scatter( voltageRange2barCL(indexCellToInclude), corrOLBeforeToOLafter(indexCellToInclude) , 'filled' ); hold on
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum(indexCellToInclude) ));
+text( voltageRange2barCL(indexCellToInclude)+dx ,corrOLBeforeToOLafter(indexCellToInclude)+ dy ,     textLabels)
+
+% linear regression
+fitModel = fitlm( voltageRange2barCL(indexCellToInclude),  corrOLBeforeToOLafter(indexCellToInclude));
+Rsquared = fitModel.Rsquared.Ordinary;
+pvalOfSlope = fitModel.Coefficients.pValue(2);
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' correlation (OL after vs OL before)) ');
+title( [ '2 bar CL voltage modulation vs correalation of OL before/after. R^2:' num2str(Rsquared)   ' pval:' num2str(pvalOfSlope) ])
+
+
+%%  scatter of integral(abs( after-before OL) vs. (2 bar CL voltage
+% modulation / 1 bar voltage modulation)
+Threshold1barCL = 5;% mV
+indexCellToInclude = find( voltageRange1barCL > Threshold1barCL);
+
+
+figure; set(gcf, 'Color', 'w');
+%modulationRatio = voltageRange2barCL( indexCellToInclude ) ./ voltageRange1barCL(indexCellToInclude) ;
+%modulationRatio = ( voltageRange2barCL( indexCellToInclude ) - voltageRange1barCL(indexCellToInclude)) ;
+modulationRatio = ( voltageRange2barCL( indexCellToInclude ) - voltageRange1barCL(indexCellToInclude) / voltageRange1barCL(indexCellToInclude) ) ;
+
+netVisualTuningChangeToPlot = normVisualTuningChange( indexCellToInclude );
+scatter( modulationRatio , netVisualTuningChangeToPlot , 'filled' );
+fitlm( modulationRatio ,  netVisualTuningChangeToPlot)
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum(indexCellToInclude) ));
+text( modulationRatio+dx ,netVisualTuningChangeToPlot+ dy ,     textLabels)
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' net visual change (sum(abs(after-before)) ');
+title( '2 bar CL voltage modulation vs net visual tuning change')
+
+%% scatter of afterOL correlation with 2barCL - afterOL correlation with 1barCL  vs. 2 bar CL voltage
+% modulation 
+figure; set(gcf, 'Color', 'w');
+correlationChange2barminus1bar = corrOLafterToCL2bar - corrOLafterToCL1bar;
+
+scatter(  voltageRange2barCL , correlationChange2barminus1bar , 'filled' );
+fitlm( voltageRange2barCL ,  correlationChange2barminus1bar)
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,correlationChange2barminus1bar+ dy ,     textLabels)
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' correlation change 2bar-1bar ');
+
+
+
+
+%% scatter of 2bar CL correlation with after OL vs. 2 bar CL voltage
+% modulation 
+figure; set(gcf, 'Color', 'w');
+scatter(  voltageRange2barCL , corrOLafterToCL2bar , 'filled' );
+fitlm( voltageRange2barCL ,  corrOLafterToCL2bar)
+% displacement for labels
+dx = 0.1; dy = 0.1;
+textLabels = cellstr( num2str(flyNum));
+text( voltageRange2barCL+dx ,corrOLafterToCL2bar+ dy ,     textLabels)
+
+xlabel(' 2 bar closed loop modulation (mV)')
+ylabel(' correlation between 2bar and afterOL ');

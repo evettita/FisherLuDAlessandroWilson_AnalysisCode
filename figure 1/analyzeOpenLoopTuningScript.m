@@ -3,7 +3,7 @@
 % displays both all trials from an expeirment in order as well as
 % averaged tuning curves for the full expeirment
 % 
-% Written to look at data for Figure 1 of the manuscript
+% Written to look at and proccess data for Figure 1 of the manuscript
 %
 % Yvette Fisher 11/8/18
 %% 1) Load in open loop data set 
@@ -43,8 +43,7 @@ for fileNum = 1 : length ( trialFilesList )
     DURATION_TO_PLOT_BEFORE_FLASH = 0.5;
     DURATION_TO_PLOT_PER_EPOCH = 1; % sec
     
-    % set how long the stimulus step (data.xPanelPos) needs to be constant
-    % after change to be included in data set
+    % set how long the stimulus step (data.xPanelPos) needs to be constant to be included in data set
     SEARCH_LENGTH = 0.3; % seconds
     seqFramesToLookFor = SEARCH_LENGTH * settings.sampRate;
     
@@ -60,7 +59,6 @@ for fileNum = 1 : length ( trialFilesList )
         
         % remove any indexs too close to the end of the trace to cause errors
         indofJ  = indofJ (indofJ < ( numel( data.xPanelPos )  - numOfFramesToIgnoreAtEnd));
-        
         epochStartInds = [];
         
         % only take those where there are not change in position values for 100 ms after the start
@@ -115,12 +113,8 @@ for kk = POSSIBLE_BAR_LOCATIONS
     firstTrialStartTime = processedData(1).trialStartTime;
 
     for i = 1 : length( processedData )
-        
         currTraces = processedData(i).barPositionResp{BAR_POSITION_TO_PLOT};
         currTimeArray = (1  :  length(currTraces) ) / settings.sampRate; % seconds
-
-        %remove median filter step:
-        currTracesFiltered = currTraces;
         
         % Extract average from each epoch period
         PRE_BASELINE_START_TIME = 0.25;
@@ -138,17 +132,17 @@ for kk = POSSIBLE_BAR_LOCATIONS
         responsePeriodIndexes = RESP_START_TIME < currTimeArray & currTimeArray < RESP_END_TIME ;
         
         % save pre baseline mean and std
-        preBaselineVoltage = mean ( currTracesFiltered (:, preBaselinesIndexes) , 2 );
+        preBaselineVoltage = mean ( currTraces (:, preBaselinesIndexes) , 2 );
         ave_preBaselineVoltage(i) = mean ( preBaselineVoltage );
         sem_preBaselineVoltage(i) =  std( preBaselineVoltage) / sqrt( numel( preBaselineVoltage));
         
         % same post baseline mean & std
-        postBaselineVoltage = mean ( currTracesFiltered (:, postBaselineIndexes) , 2 );
+        postBaselineVoltage = mean ( currTraces (:, postBaselineIndexes) , 2 );
         ave_postBaselineVoltage(i) = mean ( postBaselineVoltage );
         sem_postBaselineVoltage(i) =  std( postBaselineVoltage) / sqrt( numel( postBaselineVoltage));
         
         % same responses mean & std
-        voltage = mean ( currTracesFiltered (:, responsePeriodIndexes) , 2 );
+        voltage = mean ( currTraces (:, responsePeriodIndexes) , 2 );
         ave_Voltage(i) = mean ( voltage );
         sem_Voltage(i) =  std( voltage) / sqrt( numel( voltage));
         
@@ -275,5 +269,4 @@ plot( timeArray, ficTracAngularPosition , 'DisplayName' , ' ball position (Yaw)'
 
 linkaxes(ax,'x');
 legend('show')
-
 end

@@ -6,7 +6,6 @@ function [ pValue ] = twoSidePvalueFromDistribution( distribution , dataPoint )
 % Yvette Fisher 12/2018
 
 % make the probability density function curve by building a histgram of the values 
-% figure; set(gcf, 'Color', 'w');
 H = histogram( distribution, 100, 'Normalization','pdf'); hold on;
 pdf = H.Values;
 

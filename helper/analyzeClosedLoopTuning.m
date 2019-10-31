@@ -52,8 +52,7 @@ for fileNum = 1 : length ( trialFilesListClosedLoop )
     end
     
     %load/store trial number
-    trialNums( fileNum ) = trialMeta.trialNum;
-    
+    trialNums( fileNum ) = trialMeta.trialNum; 
     trial_stimPatternNum ( fileNum ) = stimulus.panelParams.patternNum;
     
     %load/store stimulus name
@@ -173,6 +172,5 @@ set(gca, 'yticklabel', tickLabels )
 niceaxes;
 
 title( [ num2str(exptInfo.dNum) ' fly#: ' num2str(exptInfo.flyNum) ' cell#: '  num2str(exptInfo.cellNum) ' expt#: ' num2str(exptInfo.cellExpNum) ] )
-
 end
 

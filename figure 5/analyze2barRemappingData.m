@@ -2,34 +2,29 @@
 % Extract data for 1bar, 2bar and 1 bar return data set for each fly and
 % plot the data
 %
-%  Script to be used for making Figure 4 
+%  Script to be used for making Figure 5 
 %
 % Yvette Fisher 11/13/18  
 %% Critera for including data
-
-%todo - create a script to enable the removal of hyperpolarization events
-%when they occur
-
 %Open loop:
-% 1) cells ave Vm for a trial must not be above -20mV
+% 1) cells ave Vm for a trial must not be above -33mV (after junction
+% potential correction)
 % 2) include the 2 trials before CL switch, 2 trials after CL switch,
 % unless there is a problem with one of those trials
 
-
 % Closed loop
-% 1) cells ave Vm for a trial must not be above -20mV
+% 1) cells ave Vm for a trial must not be above -33mV (after junction
+% potential correction)
 % 2) include the 2 trials before CL switch when possible, and the last 2 trials of the 12
 % min training period.   ***Flies must visit all heading locations at some
 % point across both of these two trials-8min segments to make the data set
 
-
-%% 1 BAR INTIAL OL Load all open loop data for initial 1 bar period
+%% 1 BAR INITIAL OL Load all open loop data for initial 1 bar period
 clear all
 close all
 ephysSettings;
 
 % INPUT wanted trials here
-
 possibleTrials_1barBefore = [4];
 
 
@@ -40,24 +35,16 @@ trialFilesList = extractTrialsWithCertainStimulusName( 'barRandLocON()', include
 %% Plot all selected trials to check if there are any issues and extract and calculate mean tuning
 plotSelectedTrials( trialFilesList )
 
-
-%% Trial section removal: input values for removal of a bad section of the trace
-
-% add rule - if there are more than 1 event per trial - take a different
-% trial
-% hyper pol event must drop -15 below normal trace to count
+%% Trial section removal: input values for removal of a bad section of the trace is needed
 traceRemovalOL(1).trial = 4;
 traceRemovalOL(1).period =  [85,90];% seconds during the trial
-% traceRemovalOL(2).trial = 6;
-% traceRemovalOL(2).period =  [58, 60];% seconds during the trial
 
 [OL_oneBarTuningCurve , flyNum ] = analyzeOpenLoopTuning( trialFilesList , traceRemovalOL );
 
-%% No trial removal: extract trials data, and plot mean tuning 
+%% No trial section removal: extract trials data, and plot mean tuning 
 [OL_oneBarTuningCurve , flyNum ] = analyzeOpenLoopTuning( trialFilesList );
 
-
-%% 1 BAR INTIAL CLOSED LOOP for initial 1 bar period
+%% 1 BAR INITIAL CLOSED LOOP for initial 1 bar period
 possibleTrials_1barBefore = [6,7];
 
 % pull out file names for the trials where the wanted stimulus was shown:
@@ -66,54 +53,37 @@ trialFilesListClosedLoop = extractTrialsWithCertainStimulusName( 'closedLoop_ver
 
 %%
 plotSelectedTrials( trialFilesListClosedLoop )
-
-%% trial section removal:
-
+%% Trial section removal: input values for removal of a bad section of the trace is needed
 traceRemovalCL(1).trial = 1;
 traceRemovalCL(1).period =  [164, 174];% seconds during the trial
 
-
 CL_before1BarTuningCurve  = analyzeClosedLoopTuning( trialFilesListClosedLoop , traceRemovalCL );
 
-%% Normal CL tuning curve
-
+%% No trial section removal: extract trials data, and plot mean tuning 
 CL_before1BarTuningCurve  = analyzeClosedLoopTuning( trialFilesListClosedLoop );
-
 
 
 %% AFTER 2 BAR, OL Load all open loop data
 % INPUT wanted trials here
-
 possibleTrials_after2bar = [8];
-
 
 % pull out file names for the trials where the wanted stimulus was shown:
 includeIfNameContainsString = false;
 trialFilesList = extractTrialsWithCertainStimulusName( 'barRandLocON()', includeIfNameContainsString, possibleTrials_after2bar);
 
 %% Plot all selected trials to check if there are any issues and extract and calculate mean tuning
-plotSelectedTrials( trialFilesList )
-
+plotSelectedTrials( trialFilesList );
 
 %% Trial section removal: input values for removal of a bad section of the trace
-
-% add rule - if there are more than 1 event per trial - take a different
-% trial
-% hyper pol event must drop -15 below normal trace to count
 traceRemovalOL(1).trial = 12;
 traceRemovalOL(1).period =  [7, 18];% seconds during the trial
-% traceRemovalOL(2).trial = 6;
-% traceRemovalOL(2).period =  [58, 60];% seconds during the trial
 
 [OL_after2BarTuningCurve , flyNum ] = analyzeOpenLoopTuning( trialFilesList , traceRemovalOL );
 %% extract trials data, and plot mean tuning 
 OL_after2BarTuningCurve = analyzeOpenLoopTuning( trialFilesList );
 
-
 %% 2 BAR CLOSED LOOP period
-
 possibleTrials_2bar = [6,7];
-
 
 % pull out file names for the trials where the wanted stimulus was shown:
 includeIfNameContainsString = true;
@@ -128,7 +98,6 @@ traceRemovalCL(1).period =  [164, 175];% seconds during the trial
 
 
 CL_2BarTuningCurve  = analyzeClosedLoopTuning( trialFilesListClosedLoop , traceRemovalCL );
-
 %%
 CL_2BarTuningCurve  = analyzeClosedLoopTuning( trialFilesListClosedLoop );
 
@@ -136,17 +105,16 @@ CL_2BarTuningCurve  = analyzeClosedLoopTuning( trialFilesListClosedLoop );
 % looks at fly movement for these trial
 [ aveAngularSpeed,  aveForwardSpeed, trialNums ] = findAveFlyMovementByTrial( trialFilesListClosedLoop );
 
-aveAcrossTrials_angularSpeed = mean( aveAngularSpeed )
-aveAcrossTrials_forwardSpeed = mean( aveForwardSpeed )
+aveAcrossTrials_angularSpeed = mean( aveAngularSpeed );
+aveAcrossTrials_forwardSpeed = mean( aveForwardSpeed );
 
-%% Plot all 4 curves for this recording: - copy data to excel sheet here!
-
+%% Plot all 4 curves for this recording:
 figure;
 set(gcf, 'Color', 'w');
 
-DEGREE_PER_LED_SLOT = 360 / 96;  % fixed from YEF math error on 1/3/18
+DEGREE_PER_LED_SLOT = 360 / 96;
 POSSIBLE_BAR_LOCATIONS = 2:2:71;
- MIDLINE_POSITION = 34; % LED position where the fly is aligned to for all 270 deg EPG recordings 11/2017  - present
+MIDLINE_POSITION = 34;
 barPositionDegreesFromMidline = ( POSSIBLE_BAR_LOCATIONS - MIDLINE_POSITION ) * DEGREE_PER_LED_SLOT;
 
 % CL 1 bar
@@ -178,51 +146,6 @@ niceaxes; box off
 xlim([ -120 135])
 
 suptitle( ['flyNum' num2str( flyNum )] )
-
-    % save current plot
-    dir =  '/Users/evettita/Dropbox (HMS)/FisherLuWilson ms/figure 4/';
-    fileName = [ dir 'flyNum' num2str( flyNum ) '_remapping.eps' ];
-    print( fileName, '-dpdf');
-
-%%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%% AFTER 1 BAR, OL Load all open loop data
-% INPUT wanted trials here
-possibleTrials_1barAfter =15:20;
-
-% pull out file names for the trials where the wanted stimulus was shown:
-includeIfNameContainsString = false;
-trialFilesList = extractTrialsWithCertainStimulusName( 'barRandLocON()', includeIfNameContainsString, possibleTrials_1barAfter);
-
-%% Plot all selected trials to check if there are any issues and extract and calculate mean tuning
-plotSelectedTrials( trialFilesList )
-
-% extract trials data, and plot mean tuning 
-OL_after1BarTuningCurve = analyzeOpenLoopTuning( trialFilesList );
-
-
-%% TODO: Plot the OL data 
-
-
-
 
 %%
 function [] = plotSelectedTrials( trialFilesList )
