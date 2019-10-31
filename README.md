@@ -1,5 +1,5 @@
 # FisherLuDAlessandroWilson_AnalysisCode
--Analysis code from Fisher et al. 2019 manuscript. 
+- Analysis code from Fisher et al. 2019 manuscript. 
 
 ## Figure 1:
 ### analyzeOpenLoopTuningScript.m
